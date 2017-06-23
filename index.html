@@ -15,7 +15,9 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/css/mdb.min.css" rel="stylesheet">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/font/roboto/Roboto-Bold.ttf" rel="stylesheet">
+  
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -42,7 +44,7 @@
     </header>
 
     <main>
-      <div class="container" ng-controller="mainController">
+      <div class="container" ng-controller="mainController" style="position:fixed">
         <form ng-submit="submit()">
         <div class="input-group">
             <span class="input-group-addon">
@@ -53,18 +55,18 @@
         </div>
       </form>
 
-        <div class="jumbotron">
-          <div class="container">
-              <div class="row">
-                  <to-do-list></to-do-list>
-              </div>
-          </div>
-          <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
-          <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
-      </div>
 
-      <div ng-view></div>
       </div>
+      <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div ng-view></div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
+        <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
+    </div>
+
 
 <!--Checkbox-->
 
