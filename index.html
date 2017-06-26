@@ -15,8 +15,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/css/mdb.min.css" rel="stylesheet">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/font/roboto/Roboto-Bold.ttf" rel="stylesheet">
+
   
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
@@ -26,25 +25,83 @@
 
     <!-- Start your project here-->
 
-    <header>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <div id="flipkart-navbar">
+        <div class="container">
+            <div class="row row1">
+                <ul class="largenav pull-right">
+                    <li class="upper-links"><a class="links" href="#!pending">Pending Tasks</a></li>
+                    <li class="upper-links"><a class="links" href="#/!">All Tasks</a></li>
+                    <li class="upper-links"><a class="links" href="#!completed">Completed</a></li>
+                    <li class="upper-links"><a class="links" href="https://github.com/chawlaaditya8/snippets">Remove All Completed</a></li>
+                    <li class="upper-links"><a class="links" href="https://github.com/chawlaaditya8/snippets">Clear All</a></li>
+                    <li class="upper-links"><a class="links" href="https://github.com/chawlaaditya8/snippets">Link 6</a></li>
+                    <li class="upper-links">
+                        <a class="links" href="https://github.com/chawlaaditya8/snippets">
+                            <svg class="" width="16px" height="12px" style="overflow: visible;">
+                                <path d="M8.037 17.546c1.487 0 2.417-.93 2.417-2.417H5.62c0 1.486.93 2.415 2.417 2.415m5.315-6.463v-2.97h-.005c-.044-3.266-1.67-5.46-4.337-5.98v-.81C9.01.622 8.436.05 7.735.05 7.033.05 6.46.624 6.46 1.325v.808c-2.667.52-4.294 2.716-4.338 5.98h-.005v2.972l-1.843 1.42v1.376h14.92v-1.375l-1.842-1.42z" fill="#fff"></path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="upper-links dropdown"><a class="links" href="https://github.com/chawlaaditya8/snippets">My Account</a>
+                        <ul class="dropdown-menu">
+                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets"> My Order</a></li>
+                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets">Gift Card</a></li>
+                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets">Change Password </a></li>
+                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets">logout</a></li>
 
-<!--Navbar-->
-<nav class="navbar navbar-toggleable-md navbar-dark bg-primary">
-    <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-            <strong>To Do SPA</strong>
-        </a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="row row2">
+                <div class="col-sm-2">
+                    <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()"> To Do</span></h2>
+                    <h1 style="margin:0px;"><span class="largenav">TO DO</span></h1>
+                </div>
+                <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11" ng-controller="mainController" >
+                    <form ng-submit="submit()">
+                    <div class="row">
 
+                        <input class="flipkart-navbar-input col-md-10 col-xs-10 col-sm-10 " type="text" ng-model="task" placeholder="What do you want to do?" name="">
+                        <button class="flipkart-navbar-button col-md-2 col-xs-2 col-sm-2" type="submit">
+                            <img src="img/add.png">
+                        </button>
+                    </div>
+                    </form>
+
+            </div>
+                <div class="cart largenav col-sm-2">
+                    <div class="container" ng-controller="progressController">
+                        <div class="row" id="fakhar-cricle" style="position: relative;top: -47px;">
+                            <div class="col-xs-4 col-xs-offset-4">
+                                <div class="text-center" style="width:150px;margin:auto">
+                                    <div id="circle" class="circle" style="margin:auto" data-next="none">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="cricleinput" value="0">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</nav>
+    <div id="mySidenav" class="sidenav">
+        <div class="container" style="background-color: #2874f0; padding-top: 10px;">
+            <span class="sidenav-heading">Home</span>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        </div>
+        <a href="https://github.com/chawlaaditya8/snippets">Link</a>
+        <a href="https://github.com/chawlaaditya8/snippets">Link</a>
+        <a href="https://github.com/chawlaaditya8/snippets">Link</a>
+        <a href="https://github.com/chawlaaditya8/snippets">Link</a>
+    </div>
 
-    </header>
 
     <main>
-      <div class="container" ng-controller="mainController" style="position:fixed">
+      <!--<div class="container" ng-controller="mainController" style="position:fixed">
         <form ng-submit="submit()">
         <div class="input-group">
             <span class="input-group-addon">
@@ -54,13 +111,29 @@
             <input type="text" ng-model="task" class="form-control" aria-label="Text input with checkbox" placeholder="what do you want to ddo?">
         </div>
       </form>
+    </div>-->
+
+        <!--<div class="container" ng-controller="taskprogress">
+            <div class="row" id="fakhar-cricle">
+                <div class="col-xs-4 col-xs-offset-4">
+                    <div class="text-center" style="width:150px;margin:auto">
+                        <div id="circle" class="circle" style="margin:auto" data-next="none">
+                        </div>
+                        <button class="btn btn-block btn-success" type="button" id="cricle-btn" data-size="20480"><i class="fa fa-fw fa-download"> </i> Download</button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="cricleinput" value="0">
+        </div>-->
 
 
-      </div>
+
+        <div ng-view></div>
+
       <div class="jumbotron">
         <div class="container">
             <div class="row">
-                <div ng-view></div>
+
             </div>
         </div>
         <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
@@ -81,11 +154,125 @@
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/tether.min.js"></script>
+
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+    <script type="text/javascript" src="js/custom.js"></script>
+
+    <script>
+        ( function( $ ){
+            $(document).ready(function() {
+                $( '.circle' ).each(function() {
+                    $(this).progressCircle({
+                        nPercent        : 0,
+                        showPercentText : true,
+                        thickness       : 10,
+                        circleSize      : 150
+                    });
+                });
+                $("#cricle-btn").click(function() {
+                    var speed = $(this).data("size");
+                    var speed = parseInt(speed)*10;
+                    var speed = parseInt(speed)/1024;
+                    var speed = parseInt(speed);
+                    $(this).addClass("active");
+                    circle('#circle',"#cricleinput",speed);
+                })
+
+                function circle(circleID,cricleinput, speed) {
+                    setTimeout(function() {
+                        $(circleID).each(function() {
+                            var ci = $(cricleinput).val();
+                            var ci = parseInt(ci)+1;
+                            if(ci<100) {
+                                $(this).progressCircle({
+                                    nPercent        : ci,
+                                    showPercentText : true,
+                                    thickness       : 10,
+                                    circleSize      : 150
+                                });
+                            }
+                            else
+                            if(ci==100) {
+                                $(this).addClass("end").progressCircle({
+                                    nPercent        : 100,
+                                    showPercentText : true,
+                                    thickness       : 9,
+                                    circleSize      : 150
+                                });
+                            }
+                            else
+                            if(ci==101) {
+                                $(this).progressCircle({
+                                    nPercent        : 100,
+                                    showPercentText : true,
+                                    thickness       : 8,
+                                    circleSize      : 150
+                                });
+                            }
+                            else
+                            if(ci==102) {
+                                $(this).progressCircle({
+                                    nPercent        : 100,
+                                    showPercentText : true,
+                                    thickness       : 7,
+                                    circleSize      : 150
+                                });
+                            }
+                            else
+                            if(ci==103) {
+                                $(this).progressCircle({
+                                    nPercent        : 100,
+                                    showPercentText : true,
+                                    thickness       : 6,
+                                    circleSize      : 150
+                                });
+                            }
+                            else
+                            if(ci==104) {
+                                $(this).progressCircle({
+                                    nPercent        : 100,
+                                    showPercentText : true,
+                                    thickness       : 5,
+                                    circleSize      : 150
+                                });
+                            }
+                            else
+                            if(ci==105) {
+                                $(this).progressCircle({
+                                    nPercent        : 100,
+                                    showPercentText : true,
+                                    thickness       : 4,
+                                    circleSize      : 150
+                                });
+                            }
+                            $(cricleinput).val(ci);
+                        });
+                        $( circleID ).promise().done(function() {
+                            var ci = $("#cricleinput").val();
+                            if(ci<105) {
+                                circle(circleID,cricleinput,speed);
+                            }
+                            else {
+                                var nextid = $(this).data("next");
+                                if(nextid != 'none') {
+                                    $(cricleinput).val(0);
+                                    circle(nextid,cricleinput,speed);
+                                }
+                                else {
+                                    $(".end").addClass("complate");
+                                }
+                            }
+                        })
+                    },speed);
+                }
+            });
+        })( jQuery );
+
+
+    </script>
 </body>
 
 </html>

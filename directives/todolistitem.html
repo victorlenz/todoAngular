@@ -1,7 +1,24 @@
+<!--
 <div class="col-md-12">
   <fieldset class="form-group">
       <input type="checkbox" id="checkbox2" class="dos">
-      <label for="checkbox=2"><h2 class="col-md-offset-2">{{li.item[0]}}</h2></label>
+      <label for="checkbox2"><h2 class="col-md-offset-2">{{li.item[0]}}</h2></label>
       <hr>
   </fieldset>
 </div>
+-->
+
+
+<li>
+    <time>
+        <span class="day">{{$index+1}}</span>
+    </time>
+    <div class="info">
+        <h5 class="title">{{li.item[0]}}</h5>
+        <ul style="text-align: right">
+            <li style="background: #ff5e15;color: white;display: inline"><span class="fa fa-trash-o"></span> Delete</li>
+            <li style="background: #00C851;color: white;display: inline"><span class="fa fa-check-circle-o" ></span>Mark Done</li>
+            <li style="background: #ff5e15;color: white;display: inline"><span class="fa fa-pencil-square-o"></span> Edit</li>
+        </ul>
+    </div>
+</li>

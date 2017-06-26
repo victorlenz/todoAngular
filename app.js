@@ -1,7 +1,17 @@
 myTodoApp = angular.module('myApp',['ngRoute']);
 
 
-myTodoApp.controller('mainController',['$scope',function($scope,$log){
+myTodoApp.controller('mainController',['$scope','$route',function($scope,$route){
+
+    $scope.markedDone=function(item)
+    {
+        $scope.db = JSON.parse(localStorage.getItem('db'));
+        //  console.log($scope.db.taskType);
+        $scope.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
+        console.log($scope.db.taskType[searchItemIndex(item,$scope.db.taskType)]);
+        localStorage.setItem('db',JSON.stringify($scope.db));
+        $route.reload();
+    }
 
   console.log("working");
 
@@ -10,15 +20,19 @@ myTodoApp.controller('mainController',['$scope',function($scope,$log){
   {
     if(localStorage.getItem('taskcount') == null)
     {
-      console.log("INITIALISE ");
+      console.log("INITIALISE");
       localStorage.setItem('taskcount',0);
       var db = {};
       var data =[],taskType=[];
       db.data =  data;
       db.taskType = taskType;
       localStorage.setItem('db',JSON.stringify(db));
+
+
     }
-  }else {alert("this app will not  work in your  browser");}
+  }else
+    { alert("this app will not  work in your  browser"); }
+
   //RETREIVE THE INSTABNCCE OF THE DATABASE
   $scope.db = JSON.parse(localStorage.getItem('db'));
 
@@ -30,6 +44,10 @@ myTodoApp.controller('mainController',['$scope',function($scope,$log){
 
   //NEW ENTRY OF THE TASK
   $scope.submit = function(){
+
+      if($scope.task == '' || $scope.task == null)
+            return;
+
     if (typeof(Storage) !== "undefined") {
     // Code for localStorage/sessionStorage.
         console.log($scope.task);
@@ -77,7 +95,7 @@ myTodoApp.controller('mainController',['$scope',function($scope,$log){
         for(var i=0;i<keys.length; i++)
           console.log(mySearch(keys[i],allTypes,"false"));
 
-
+        $route.reload();
 
       } else {
         // Sorry! No Web Storage support..
@@ -102,6 +120,9 @@ myTodoApp.controller('mainController',['$scope',function($scope,$log){
     $scope.listItems.push({"item" : [localStorage.getItem(keys[i])], "key" : [keys[i]]});
 
   }
+    //progressService.setTotalTask($scope.listItems.length);
+
+  //$scope.listItems.slice().reverse();
 
 
 
@@ -127,7 +148,21 @@ myTodoApp.config(function($routeProvider){
       });
 });
 
-myTodoApp.controller('completedController',['$scope',function($scope,$log){
+
+
+
+
+myTodoApp.controller('completedController',['$scope','$log','$route',function($scope,$log,$route){
+
+    $scope.markedDone=function(item)
+    {
+        $scope.db = JSON.parse(localStorage.getItem('db'));
+        //  console.log($scope.db.taskType);
+        $scope.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
+        console.log($scope.db.taskType[searchItemIndex(item,$scope.db.taskType)]);
+        localStorage.setItem('db',JSON.stringify($scope.db));
+        $route.reload();
+    }
 
   var x= JSON.parse(localStorage.getItem('db'));
 
@@ -163,63 +198,126 @@ myTodoApp.controller('completedController',['$scope',function($scope,$log){
     console.log($scope.listItems);
 
 }]);
-var test;
-myTodoApp.controller('pendingController',['$scope',function($scope,$log){
+
+myTodoApp.constructor('progressController',['$scope',function ($scope) {
+
+}]);
+
+myTodoApp.controller('pendingController',['$scope','$log','progressService','$route',function($scope,$log,progressService,$route){
 
   $scope.markedDone=function(item)
   {
     $scope.db = JSON.parse(localStorage.getItem('db'));
-  //  console.log($scope.db.taskType);
+    //  console.log($scope.db.taskType);
     $scope.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
     console.log($scope.db.taskType[searchItemIndex(item,$scope.db.taskType)]);
     localStorage.setItem('db',JSON.stringify($scope.db));
+    $route.reload();
   }
 
-  var x= JSON.parse(localStorage.getItem('db'));
-  var keys =[];
-  for(var i=0;i<x.data.length;i++)
-    keys.push(x.data[i].taskKey);
-  var allTypes = JSON.parse(localStorage.getItem('db')).taskType;
-//  self = allTypes;
-  console.warn(allTypes[0]);
-  console.warn(keys);
-  console.log("search result ");
-  $scope.lists = [];
-    for(var i=0;i<keys.length; i++)
-    {
-        var item =mySearch(keys[i],allTypes,"false");
-
-        if(item===true)
-        $scope.lists.push(keys[i]);
-
-    }
-
-    $scope.listItems =[];
-
-    $scope.db = JSON.parse(localStorage.getItem('db'));
-    for(var i=0;i<$scope.lists.length;i++)
-    {
-      $scope.listItems.push({"item" : [localStorage.getItem($scope.lists[i])], "key" : [$scope.lists[i]]});
-
-    }
+    $scope.listItems = progressService.pendingTask();
 
     console.log("items keys...............................");
     console.log($scope.listItems);
 }]);
 
-myTodoApp.controller('allController',['$scope',function($scope,$log){
+myTodoApp.controller('allController',['$scope',function($scope){
 
 
 }]);
 
-console.log("working");
 myTodoApp.directive('toDoList', function(){
   return{
     templateUrl: 'directives/todolistitem.html',
-    replace:false
+    replace:true
   }
 });
 
+myTodoApp.controller('progressController',['$scope',function ($scope) {
+
+}]);
+
+myTodoApp.service('progressService',function () {
+
+    this.self = this;
+
+    this.pendingTask = function () {
+
+        var x= JSON.parse(localStorage.getItem('db'));
+        var keys =[];
+        for(var i=0;i<x.data.length;i++)
+            keys.push(x.data[i].taskKey);
+
+        var allTypes = JSON.parse(localStorage.getItem('db')).taskType;
+//  self = allTypes;
+        console.warn(allTypes[0]);
+        console.warn(keys);
+        console.log("search result ");
+        self.lists = [];
+
+        for(var i=0;i<keys.length; i++)
+        {
+            var item =mySearch(keys[i],allTypes,"false");
+
+            if(item===true)
+                self.lists.push(keys[i]);
+
+        }
+
+        self.listItems =[];
+
+        self.db = JSON.parse(localStorage.getItem('db'));
+        for(var i=0;i<self.lists.length;i++)
+        {
+            self.listItems.push({"item" : [localStorage.getItem(self.lists[i])], "key" : [self.lists[i]]});
+
+        }
+
+        return self.listItems;
+    }
+    
+    this.completedTask = function () {
+        
+    }
+
+    this.clickMarked =  function (item) {
+
+        self.db = JSON.parse(localStorage.getItem('db'));
+        //  console.log($scope.db.taskType);
+        self.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
+        console.log(self.db.taskType[searchItemIndex(item,self.db.taskType)]);
+        localStorage.setItem('db',JSON.stringify(self.db));
+
+    }
+
+    this.clickDelete=function(item)
+    {
+        self.db = JSON.parse(localStorage.getItem('db'));
+
+        self.db.data.splice(searchDataItemIndex(item,self.db.data),1);
+
+        self.db.taskType.splice(searchItemIndex(item,self.db.taskType),1);
+
+        localStorage.removeItem(item);
+
+        localStorage.setItem('db',JSON.stringify(self.db));
+
+
+    }
+
+    this.clickEdit =  function (item,newValue) {
+
+        localStorage.setItem(item,newValue);
+    }
+    
+    this.setProgress= function(){
+        
+        
+    }
+
+
+
+});
 
 function mySearch(nameKey,myArray,c){
 
@@ -241,6 +339,14 @@ function searchItemIndex(nameKey,myArray){
         if (myArray[i][nameKey] !== undefined) {
               //return myArray[i];
               return i;
-            }
         }
     }
+}
+
+function searchDataItemIndex(nameKey,myArray){
+    for (var i=0; i < myArray.length; i++) {
+        if(db.data[i].taskKey === nameKey)
+                return i;
+    }
+    return -1;
+}
