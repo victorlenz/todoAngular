@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>To do App </title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -16,7 +16,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
 
-  
+
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -28,30 +28,15 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <div id="flipkart-navbar">
         <div class="container">
-            <div class="row row1">
+            <div class="row row1" ng-controller="menuBar">
                 <ul class="largenav pull-right">
                     <li class="upper-links"><a class="links" href="#!pending">Pending Tasks</a></li>
                     <li class="upper-links"><a class="links" href="#/!">All Tasks</a></li>
                     <li class="upper-links"><a class="links" href="#!completed">Completed</a></li>
-                    <li class="upper-links"><a class="links" href="https://github.com/chawlaaditya8/snippets">Remove All Completed</a></li>
-                    <li class="upper-links"><a class="links" href="https://github.com/chawlaaditya8/snippets">Clear All</a></li>
-                    <li class="upper-links"><a class="links" href="https://github.com/chawlaaditya8/snippets">Link 6</a></li>
-                    <li class="upper-links">
-                        <a class="links" href="https://github.com/chawlaaditya8/snippets">
-                            <svg class="" width="16px" height="12px" style="overflow: visible;">
-                                <path d="M8.037 17.546c1.487 0 2.417-.93 2.417-2.417H5.62c0 1.486.93 2.415 2.417 2.415m5.315-6.463v-2.97h-.005c-.044-3.266-1.67-5.46-4.337-5.98v-.81C9.01.622 8.436.05 7.735.05 7.033.05 6.46.624 6.46 1.325v.808c-2.667.52-4.294 2.716-4.338 5.98h-.005v2.972l-1.843 1.42v1.376h14.92v-1.375l-1.842-1.42z" fill="#fff"></path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="upper-links dropdown"><a class="links" href="https://github.com/chawlaaditya8/snippets">My Account</a>
-                        <ul class="dropdown-menu">
-                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets"> My Order</a></li>
-                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets">Gift Card</a></li>
-                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets">Change Password </a></li>
-                            <li class="profile-li"><a class="profile-links" href="https://github.com/chawlaaditya8/snippets">logout</a></li>
+                    <li class="upper-links"><a class="links" href="" ng-click="removeAllCompleted()">Remove All Completed</a></li>
+                    <li class="upper-links"><a class="links" href="" ng-click="clearAll()" >Clear All</a></li>
+                    <li class="upper-links"><a class="links" href="" ng-click="markAllCompleted()">Mark All completed</a></li>
 
-                        </ul>
-                    </li>
                 </ul>
             </div>
             <div class="row row2">
@@ -73,16 +58,7 @@
             </div>
                 <div class="cart largenav col-sm-2">
                     <div class="container" ng-controller="progressController">
-                        <div class="row" id="fakhar-cricle" style="position: relative;top: -47px;">
-                            <div class="col-xs-4 col-xs-offset-4">
-                                <div class="text-center" style="width:150px;margin:auto">
-                                    <div id="circle" class="circle" style="margin:auto" data-next="none">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="cricleinput" value="0">
+                        <progress value="{{done}}" max="{{pending}}">{{progress}}</progress>
                     </div>
                 </div>
             </div>
@@ -130,17 +106,6 @@
 
         <div ng-view></div>
 
-      <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-
-            </div>
-        </div>
-        <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
-        <button type="button" class="btn btn-default pill-btn btn-sm">Default</button>
-    </div>
-
-
 <!--Checkbox-->
 
     </main>
@@ -161,118 +126,6 @@
 
     <script type="text/javascript" src="js/custom.js"></script>
 
-    <script>
-        ( function( $ ){
-            $(document).ready(function() {
-                $( '.circle' ).each(function() {
-                    $(this).progressCircle({
-                        nPercent        : 0,
-                        showPercentText : true,
-                        thickness       : 10,
-                        circleSize      : 150
-                    });
-                });
-                $("#cricle-btn").click(function() {
-                    var speed = $(this).data("size");
-                    var speed = parseInt(speed)*10;
-                    var speed = parseInt(speed)/1024;
-                    var speed = parseInt(speed);
-                    $(this).addClass("active");
-                    circle('#circle',"#cricleinput",speed);
-                })
-
-                function circle(circleID,cricleinput, speed) {
-                    setTimeout(function() {
-                        $(circleID).each(function() {
-                            var ci = $(cricleinput).val();
-                            var ci = parseInt(ci)+1;
-                            if(ci<100) {
-                                $(this).progressCircle({
-                                    nPercent        : ci,
-                                    showPercentText : true,
-                                    thickness       : 10,
-                                    circleSize      : 150
-                                });
-                            }
-                            else
-                            if(ci==100) {
-                                $(this).addClass("end").progressCircle({
-                                    nPercent        : 100,
-                                    showPercentText : true,
-                                    thickness       : 9,
-                                    circleSize      : 150
-                                });
-                            }
-                            else
-                            if(ci==101) {
-                                $(this).progressCircle({
-                                    nPercent        : 100,
-                                    showPercentText : true,
-                                    thickness       : 8,
-                                    circleSize      : 150
-                                });
-                            }
-                            else
-                            if(ci==102) {
-                                $(this).progressCircle({
-                                    nPercent        : 100,
-                                    showPercentText : true,
-                                    thickness       : 7,
-                                    circleSize      : 150
-                                });
-                            }
-                            else
-                            if(ci==103) {
-                                $(this).progressCircle({
-                                    nPercent        : 100,
-                                    showPercentText : true,
-                                    thickness       : 6,
-                                    circleSize      : 150
-                                });
-                            }
-                            else
-                            if(ci==104) {
-                                $(this).progressCircle({
-                                    nPercent        : 100,
-                                    showPercentText : true,
-                                    thickness       : 5,
-                                    circleSize      : 150
-                                });
-                            }
-                            else
-                            if(ci==105) {
-                                $(this).progressCircle({
-                                    nPercent        : 100,
-                                    showPercentText : true,
-                                    thickness       : 4,
-                                    circleSize      : 150
-                                });
-                            }
-                            $(cricleinput).val(ci);
-                        });
-                        $( circleID ).promise().done(function() {
-                            var ci = $("#cricleinput").val();
-                            if(ci<105) {
-                                circle(circleID,cricleinput,speed);
-                            }
-                            else {
-                                var nextid = $(this).data("next");
-                                if(nextid != 'none') {
-                                    $(cricleinput).val(0);
-                                    circle(nextid,cricleinput,speed);
-                                }
-                                else {
-                                    $(".end").addClass("complate");
-                                }
-                            }
-                        })
-                    },speed);
-                }
-            });
-        })( jQuery );
-
-
-    </script>
 </body>
 
 </html>

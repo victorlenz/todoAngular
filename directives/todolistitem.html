@@ -13,12 +13,11 @@
     <time>
         <span class="day">{{$index+1}}</span>
     </time>
-    <div class="info">
+    <div class="info" ng-class="{'task-done' : li.type[0] == 'true'}">
         <h5 class="title">{{li.item[0]}}</h5>
         <ul style="text-align: right">
-            <li style="background: #ff5e15;color: white;display: inline"><span class="fa fa-trash-o"></span> Delete</li>
-            <li style="background: #00C851;color: white;display: inline"><span class="fa fa-check-circle-o" ></span>Mark Done</li>
-            <li style="background: #ff5e15;color: white;display: inline"><span class="fa fa-pencil-square-o"></span> Edit</li>
+            <li style="display: inline" ng-click="delete(li.key[0])" ><span class="fa fa-trash-o"></span></li>
+            <li style="display: inline" ng-click="markedDone(li.key[0])" ng-if="li.type[0] == 'false'"><span class="fa fa-check-circle-o"></span></li>
         </ul>
     </div>
 </li>

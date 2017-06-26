@@ -1,4 +1,26 @@
-<div class="container">
+<!-- <div class="container">
+    <div class="row">
+        <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
+            <ul class="event-list">
+                <to-do-list ng-repeat="li in listItems.slice().reverse()" ng-click="markedDone(li.key[0])"></to-do-list>
+            </ul>
+        </div>
+    </div>
+</div>
+-->
+<div class="container" ng-if="listItems.length === 0">
+	<div class="row text-center">
+        <div class="col-sm-6 offset-sm-3">
+        <br> <h2 style="color:#0fad00">No Tasks</h2>
+        <img src="http://osmhotels.com//assets/check-true.jpg">
+        <h3>All Caught Up</h3>
+
+        </div>
+
+	</div>
+</div>
+
+<div class="container" ng-if="listItems.length !== 0">
     <div class="row">
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
             <ul class="event-list">

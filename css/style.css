@@ -533,3 +533,8 @@
   padding: 6px;
   border-radius: 3px;
 }
+
+.task-done{
+  text-decoration: line-through;
+  background: green;
+}

@@ -1,7 +1,19 @@
 myTodoApp = angular.module('myApp',['ngRoute']);
 
 
-myTodoApp.controller('mainController',['$scope','$route',function($scope,$route){
+myTodoApp.controller('mainController',['$scope','$route','progressService',function($scope,$route,progressService){
+
+    $scope.delete = function(item)
+    {
+      progressService.clickDelete(item);
+
+      progressService.pending =  progressService.pendingTask().length;
+      progressService.done = progressService.totalTasks() - progressService.pending;
+    }
+
+    progressService.pending =  progressService.pendingTask().length;
+    progressService.done = progressService.totalTasks() - progressService.pending;
+
 
     $scope.markedDone=function(item)
     {
@@ -10,6 +22,10 @@ myTodoApp.controller('mainController',['$scope','$route',function($scope,$route)
         $scope.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
         console.log($scope.db.taskType[searchItemIndex(item,$scope.db.taskType)]);
         localStorage.setItem('db',JSON.stringify($scope.db));
+
+        progressService.pending =  progressService.pendingTask().length;
+        progressService.done = progressService.totalTasks() - progressService.pending;
+
         $route.reload();
     }
 
@@ -45,14 +61,15 @@ myTodoApp.controller('mainController',['$scope','$route',function($scope,$route)
   //NEW ENTRY OF THE TASK
   $scope.submit = function(){
 
-      if($scope.task == '' || $scope.task == null)
-            return;
+    if($scope.task == '' || $scope.task == null)
+        return;
 
     if (typeof(Storage) !== "undefined") {
     // Code for localStorage/sessionStorage.
         console.log($scope.task);
         console.log("DB Supported");
 
+          $scope.db = JSON.parse(localStorage.getItem('db'));
           //GET THE CURRENT NO OF TASKS
           $scope.taskCount=  parseInt(localStorage.getItem('taskcount'));
 
@@ -95,6 +112,9 @@ myTodoApp.controller('mainController',['$scope','$route',function($scope,$route)
         for(var i=0;i<keys.length; i++)
           console.log(mySearch(keys[i],allTypes,"false"));
 
+          progressService.pending =  progressService.pendingTask().length;
+          progressService.done = progressService.totalTasks() - progressService.pending;
+
         $route.reload();
 
       } else {
@@ -117,7 +137,7 @@ myTodoApp.controller('mainController',['$scope','$route',function($scope,$route)
   $scope.listItems =[];
   for(var i=0;i<keys.length;i++)
   {
-    $scope.listItems.push({"item" : [localStorage.getItem(keys[i])], "key" : [keys[i]]});
+    $scope.listItems.push({"item" : [localStorage.getItem(keys[i])], "key" : [keys[i]] , 'type' : [searchTaskType(keys[i],$scope.db.taskType)]});
 
   }
     //progressService.setTotalTask($scope.listItems.length);
@@ -149,13 +169,86 @@ myTodoApp.config(function($routeProvider){
 });
 
 
+myTodoApp.controller('menuBar',function($scope,progressService,$route){
+
+
+  $scope.markAllCompleted = function(){
+    $scope.pending = progressService.pendingTask();
+
+    $scope.db = JSON.parse(localStorage.getItem('db'));
+
+    for(var i=0; i< $scope.pending.length ;i++)
+    {
+      console.log(searchItemIndex($scope.pending[i].key[0],$scope.db.taskType));
+      $scope.db.taskType[searchItemIndex($scope.pending[i].key[0],$scope.db.taskType)] = {[$scope.pending[i].key[0]] : "true"};
+    }
+
+    localStorage.setItem('db',JSON.stringify($scope.db));
+    console.log("final db");
+    console.info(localStorage.getItem('db'));
+    $route.reload();
+  }
+
+  $scope.clearAll = function(){
+
+    localStorage.clear();
+    var db = {};
+    var data =[],taskType=[];
+    db.data =  data;
+    db.taskType = taskType;
+    localStorage.setItem('db',JSON.stringify(db));
+    localStorage.setItem('taskcount',0);
+    $route.reload();
+
+  }
+
+  $scope.removeAllCompleted = function(){
+    var x =  JSON.parse(localStorage.getItem('db'));
+    var allTypes = JSON.parse(localStorage.getItem('db')).taskType;
+    var keys =[];
+    for(var i=0;i<x.data.length;i++)
+      keys.push(x.data[i].taskKey);
+    $scope.lists = [];
+      for(var i=0;i<keys.length; i++)
+      {
+          var item =mySearch(keys[i],allTypes,"true");
+
+          if(item===true)
+          $scope.lists.push(keys[i]);
+
+      }
+
+      $scope.listItems =[];
+
+      $scope.db = JSON.parse(localStorage.getItem('db'));
+
+      console.log($scope.lists);
+
+      for(var i=0;i<$scope.lists.length;i++)
+      {
+      //  $scope.listItems.push({"item" : [localStorage.getItem($scope.lists[i])], "key" : [$scope.lists[i]]});
+
+          self.db.data.splice(searchDataItemIndex($scope.lists[i],self.db.data),1);
+
+          self.db.taskType.splice(searchItemIndex($scope.lists[i],self.db.taskType),1);
+
+          localStorage.removeItem($scope.lists[i]);
+
+          localStorage.setItem('db',JSON.stringify(self.db));
+
+
+      }
+
+      $route.reload();
+  }
+
+});
 
 
 
 myTodoApp.controller('completedController',['$scope','$log','$route',function($scope,$log,$route){
 
-    $scope.markedDone=function(item)
-    {
+    $scope.markedDone=function(item){
         $scope.db = JSON.parse(localStorage.getItem('db'));
         //  console.log($scope.db.taskType);
         $scope.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
@@ -190,7 +283,7 @@ myTodoApp.controller('completedController',['$scope','$log','$route',function($s
     $scope.db = JSON.parse(localStorage.getItem('db'));
     for(var i=0;i<$scope.lists.length;i++)
     {
-      $scope.listItems.push({"item" : [localStorage.getItem($scope.lists[i])], "key" : [$scope.lists[i]]});
+      $scope.listItems.push({"item" : [localStorage.getItem($scope.lists[i])], "key" : [$scope.lists[i]], 'type' : [searchTaskType($scope.lists[i],$scope.db.taskType)]});
 
     }
 
@@ -199,9 +292,6 @@ myTodoApp.controller('completedController',['$scope','$log','$route',function($s
 
 }]);
 
-myTodoApp.constructor('progressController',['$scope',function ($scope) {
-
-}]);
 
 myTodoApp.controller('pendingController',['$scope','$log','progressService','$route',function($scope,$log,progressService,$route){
 
@@ -233,23 +323,34 @@ myTodoApp.directive('toDoList', function(){
   }
 });
 
-myTodoApp.controller('progressController',['$scope',function ($scope) {
+myTodoApp.controller('progressController',['$scope','progressService',function ($scope,progressService) {
 
+  $scope.done = progressService.done;
+  $scope.pending = progressService.pending;
+
+      console.log($scope.done);
 }]);
 
 myTodoApp.service('progressService',function () {
 
     this.self = this;
+    this.done = 1;
+    this.pending =1;
+
+    this.totalTasks =   function(){
+        var x= JSON.parse(localStorage.getItem('db'));
+        return x.data.length;
+    }
+
+
 
     this.pendingTask = function () {
-
         var x= JSON.parse(localStorage.getItem('db'));
         var keys =[];
         for(var i=0;i<x.data.length;i++)
             keys.push(x.data[i].taskKey);
 
         var allTypes = JSON.parse(localStorage.getItem('db')).taskType;
-//  self = allTypes;
         console.warn(allTypes[0]);
         console.warn(keys);
         console.log("search result ");
@@ -269,15 +370,15 @@ myTodoApp.service('progressService',function () {
         self.db = JSON.parse(localStorage.getItem('db'));
         for(var i=0;i<self.lists.length;i++)
         {
-            self.listItems.push({"item" : [localStorage.getItem(self.lists[i])], "key" : [self.lists[i]]});
+            self.listItems.push({"item" : [localStorage.getItem(self.lists[i])], "key" : [self.lists[i]], 'type' : [searchTaskType(self.lists[i],self.db.taskType)]});
 
         }
 
         return self.listItems;
     }
-    
+
     this.completedTask = function () {
-        
+
     }
 
     this.clickMarked =  function (item) {
@@ -287,6 +388,7 @@ myTodoApp.service('progressService',function () {
         self.db.taskType[searchItemIndex(item,$scope.db.taskType)] = {[item] : "true"};
         console.log(self.db.taskType[searchItemIndex(item,self.db.taskType)]);
         localStorage.setItem('db',JSON.stringify(self.db));
+
 
     }
 
@@ -302,26 +404,27 @@ myTodoApp.service('progressService',function () {
 
         localStorage.setItem('db',JSON.stringify(self.db));
 
-
     }
 
     this.clickEdit =  function (item,newValue) {
 
         localStorage.setItem(item,newValue);
     }
-    
-    this.setProgress= function(){
-        
-        
-    }
-
 
 
 });
 
+function searchTaskType(nameKey,myArray){
+
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i][nameKey] !== undefined) {
+            return myArray[i][nameKey];
+        }
+    }
+}
+
 function mySearch(nameKey,myArray,c){
 
-  console.log(c);
     for (var i=0; i < myArray.length; i++) {
         if (myArray[i][nameKey] !== undefined) {
 
