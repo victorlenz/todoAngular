@@ -11,10 +11,6 @@ myTodoApp.controller('mainController',['$scope','$route','progressService',funct
       progressService.done = progressService.totalTasks() - progressService.pending;
     }
 
-    progressService.pending =  progressService.pendingTask().length;
-    progressService.done = progressService.totalTasks() - progressService.pending;
-
-
     $scope.markedDone=function(item)
     {
         $scope.db = JSON.parse(localStorage.getItem('db'));
