@@ -42,20 +42,6 @@ cursor: pointer;
 
 }
 
-
-.item-number {
-  border-radius: 3px;
-  background-color: rgba(0, 0, 0, .1);
-  height: 20px;
-  padding: 3px 6px;
-  font-weight: 500;
-  display: inline-block;
-  color: #fff;
-  line-height: 12px;
-  margin-left: 10px;
-}
-
-
 .links {
   color: #fff;
   text-decoration: none;
