@@ -165,8 +165,14 @@ myTodoApp.config(function($routeProvider){
 });
 
 
-myTodoApp.controller('menuBar',function($scope,progressService,$route){
+myTodoApp.controller('menuBar',function($scope,progressService,$route,$location){
 
+  $scope.$on('$locationChangeStart', function(event) {
+
+    $scope.location =$location.path();
+    $route.reload();
+
+});
 
   $scope.markAllCompleted = function(){
     $scope.pending = progressService.pendingTask();

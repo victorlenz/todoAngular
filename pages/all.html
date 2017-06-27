@@ -13,6 +13,7 @@ Please go to your above email now and login.</p>
 	</div>
 </div>
 
+<!--
 <div class="container" ng-if="listItems.length !== 0">
     <div class="row">
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
@@ -22,3 +23,7 @@ Please go to your above email now and login.</p>
         </div>
     </div>
 </div>
+-->
+<ul class="list-group">
+    <to-do-list ng-repeat="li in listItems.slice().reverse()" ng-click="markedDone(li.key[0])"></to-do-list>
+</ul>

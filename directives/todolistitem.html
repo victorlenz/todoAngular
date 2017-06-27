@@ -1,14 +1,5 @@
+
 <!--
-<div class="col-md-12">
-  <fieldset class="form-group">
-      <input type="checkbox" id="checkbox2" class="dos">
-      <label for="checkbox2"><h2 class="col-md-offset-2">{{li.item[0]}}</h2></label>
-      <hr>
-  </fieldset>
-</div>
--->
-
-
 <li>
     <time>
         <span class="day">{{$index+1}}</span>
@@ -20,4 +11,15 @@
             <li style="display: inline" ng-click="markedDone(li.key[0])" ng-if="li.type[0] == 'false'"><span class="fa fa-check-circle-o"></span></li>
         </ul>
     </div>
+</li> -->
+
+<li class="list-group-item" ng-class="{'list-group-item-info' : li.type[0] == 'true'}">
+
+<!--
+  <span ng-click="delete(li.key[0])" class="label label-warning pull-right">Delete</span>
+  <span ng-click="markedDone(li.key[0])" class="label label label-info pull-right">Done</span>
+-->
+<button type="button" ng-click="markedDone(li.key[0])" ng-if="li.type[0] == 'false'" class="btn btn-default btn-circle pull-right"><i class="glyphicon glyphicon-ok"></i></button>
+<button type="button" ng-click="delete(li.key[0])"  class="btn btn-warning btn-circle pull-right"><i class="glyphicon glyphicon-trash"></i></button>
+{{li.item[0]}}
 </li>
