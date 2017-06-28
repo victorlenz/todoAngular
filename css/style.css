@@ -1,12 +1,10 @@
-/* YOUR CUSTOM STYLES */
+/* MY CUSTOM STYLES */
 
+/*to do list*/
 .dos{
   margin: 0 15px;
 }
-
-.pill-btn{
-  border-radius: 35px;
-}
+/*custom navbar*/
 #c-navbar {
   background-color: #28a2f0;
   color: #FFFFFF;
@@ -14,14 +12,7 @@
   padding: 18px;
 }
 
-.row1{
-  padding-top: 10px;
-}
-
-.row2 {
-  padding-bottom: 20px;
-}
-
+/*custom navbar input*/
 .c-navbar-input {
   padding: 11px 16px;
   border-radius: 2px 0 0 2px;
@@ -31,6 +22,7 @@
   color: #000;
 }
 
+/*tasks submit buttom*/
 .c-button {
   background-color: #2469d9;
 border: 1px solid #2469d9;
@@ -41,48 +33,17 @@ height: 43px;
 cursor: pointer;
 
 }
-
-.links {
-  color: #fff;
-  text-decoration: none;
-}
-
-.links:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-.profile-links {
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  border-bottom: 1px solid #e9e9e9;
-  box-sizing: border-box;
-  display: block;
-  padding: 0 11px;
-  line-height: 23px;
-}
-
-.profile-li{
-  padding-top: 2px;
-}
-
+/*nav for large screen*/
 .largenav {
   display: none;
 }
 
+/*nav for large screen*/
 .smallnav{
   display: block;
 }
 
-.smallsearch{
-  margin-left: 15px;
-  margin-top: 15px;
-}
-
-.menu{
-  cursor: pointer;
-}
-
+/*responsive navs*/
 @media screen and (min-width: 768px) {
   .largenav {
     display: block;
@@ -95,61 +56,6 @@ cursor: pointer;
   }
 }
 
-/*Sidenav*/
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  overflow-x: hidden;
-  transition: 0.5s;
-  box-shadow: 0 4px 8px -3px #555454;
-  padding-top: 0px;
-}
-
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-  color: #fff;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav a {font-size: 18px;}
-}
-
-.sidenav-heading{
-  font-size: 36px;
-  color: #fff;
-}
-
-.task-option{
-  width: 10%;
-  color: white;
-  display: inline;
-  padding: 6px;
-  border-radius: 3px;
-}
-
-.task-done{
-  text-decoration: line-through;
-  background: green;
-}
-
 /*
 * for active elements*/
 .active {
@@ -158,4 +64,14 @@ border-radius: 4px;
 color: black !important;
 font-size: larger;
 
+}
+div {
+    transition: all linear 0.5s;
+
+}
+.ng-hide {
+    height: 0;
+}
+.ng-repeat{
+  display: inherit;
 }
