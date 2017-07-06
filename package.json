@@ -1,0 +1,23 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "A Test Application for Angular JS",
+  "main": "app.js",
+  "dependencies": {
+    "ui-select": "^0.19.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorlenz/todoAngular.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorlenz/todoAngular/issues"
+  },
+  "homepage": "https://github.com/victorlenz/todoAngular#readme"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "todo",
+  "description": "A Test Application for Angular JS",
+  "main": "app.js",
+  "authors": [
+    "Vivek kumar <vivek@habilelabs.io>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/victorlenz/todoAngular",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

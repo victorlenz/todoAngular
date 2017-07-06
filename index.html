@@ -9,11 +9,16 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+	 
 
-
+     <script src="js/ui-select.js"></script>
         <script src="//code.angularjs.org/1.3.0-rc.2/angular-route.min.js"></script>
         <script src="//code.angularjs.org/1.3.0-rc.2/angular-resource.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+        <script src="https://code.angularjs.org/latest/angular-animate.min.js"></script>
+		<script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+		<link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css"/>
         <script src="app.js"></script>
         <script src="controllers.js"></script>
         <script src="services.js"></script>
@@ -103,7 +108,16 @@
             </div>
           </div>
         </div>
-
+        <div ng-controller="test">
+        <ui-select multiple ng-model="selected.value">
+            <ui-select-match>
+                <span ng-bind="selected.value.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
+                <span ng-bind="item.name"></span>
+            </ui-select-choices>
+        </ui-select>
+        </div>
       </div>
 
 

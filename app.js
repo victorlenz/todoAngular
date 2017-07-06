@@ -1,4 +1,4 @@
-myTodoApp = angular.module('myApp',['ngRoute']);
+var myTodoApp = angular.module('myApp',['ngRoute','ui.select', 'ngSanitize']);
 
 myTodoApp.controller('progressController',['$scope','progressService',function ($scope,progressService) {
 
@@ -8,6 +8,17 @@ myTodoApp.controller('progressController',['$scope','progressService',function (
       console.log($scope.done);
 }]);
 
+myTodoApp.controller('test',function($scope){
+
+  $scope.itemArray = [{id: 1, name: 'first'},
+        {id: 2, name: 'second'},
+        {id: 3, name: 'third'},
+        {id: 4, name: 'fourth'},
+        {id: 5, name: 'fifth'}];
+  $scope.$watch('selected.value', function(pre,pos){
+    console.log(pre,pos);
+  });
+});
 
 function searchTaskType(nameKey,myArray){
 
